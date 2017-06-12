@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhou.springcrud.mapper.ProjectdetailMapper" >
+  <resultMap id="BaseResultMap" type="com.zhou.springcrud.domian.Projectdetail" >
+    <id column="projectDetail_id" property="projectdetailId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="startDate" property="startdate" jdbcType="DATE" />
+    <result column="overDate" property="overdate" jdbcType="DATE" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zhou.springcrud.domian.Projectdetail" extends="BaseResultMap" >
+    <result column="context" property="context" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    projectDetail_id, employee_id, startDate, overDate, picture
+  </sql>
+  <sql id="Blob_Column_List" >
+    context
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zhou.springcrud.domian.ProjectdetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from projectdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhou.springcrud.domian.ProjectdetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projectdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from projectdetail
+    where projectDetail_id = #{projectdetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from projectdetail
+    where projectDetail_id = #{projectdetailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhou.springcrud.domian.ProjectdetailExample" >
+    delete from projectdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhou.springcrud.domian.Projectdetail" >
+    insert into projectdetail (projectDetail_id, employee_id, startDate, 
+      overDate, picture, context
+      )
+    values (#{projectdetailId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{startdate,jdbcType=DATE}, 
+      #{overdate,jdbcType=DATE}, #{picture,jdbcType=VARCHAR}, #{context,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhou.springcrud.domian.Projectdetail" >
+    insert into projectdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectdetailId != null" >
+        projectDetail_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="startdate != null" >
+        startDate,
+      </if>
+      <if test="overdate != null" >
+        overDate,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectdetailId != null" >
+        #{projectdetailId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=DATE},
+      </if>
+      <if test="overdate != null" >
+        #{overdate,jdbcType=DATE},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhou.springcrud.domian.ProjectdetailExample" resultType="java.lang.Integer" >
+    select count(*) from projectdetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update projectdetail
+    <set >
+      <if test="record.projectdetailId != null" >
+        projectDetail_id = #{record.projectdetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startdate != null" >
+        startDate = #{record.startdate,jdbcType=DATE},
+      </if>
+      <if test="record.overdate != null" >
+        overDate = #{record.overdate,jdbcType=DATE},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.context != null" >
+        context = #{record.context,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update projectdetail
+    set projectDetail_id = #{record.projectdetailId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      startDate = #{record.startdate,jdbcType=DATE},
+      overDate = #{record.overdate,jdbcType=DATE},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      context = #{record.context,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update projectdetail
+    set projectDetail_id = #{record.projectdetailId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      startDate = #{record.startdate,jdbcType=DATE},
+      overDate = #{record.overdate,jdbcType=DATE},
+      picture = #{record.picture,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhou.springcrud.domian.Projectdetail" >
+    update projectdetail
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null" >
+        startDate = #{startdate,jdbcType=DATE},
+      </if>
+      <if test="overdate != null" >
+        overDate = #{overdate,jdbcType=DATE},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where projectDetail_id = #{projectdetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhou.springcrud.domian.Projectdetail" >
+    update projectdetail
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      startDate = #{startdate,jdbcType=DATE},
+      overDate = #{overdate,jdbcType=DATE},
+      picture = #{picture,jdbcType=VARCHAR},
+      context = #{context,jdbcType=LONGVARCHAR}
+    where projectDetail_id = #{projectdetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhou.springcrud.domian.Projectdetail" >
+    update projectdetail
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      startDate = #{startdate,jdbcType=DATE},
+      overDate = #{overdate,jdbcType=DATE},
+      picture = #{picture,jdbcType=VARCHAR}
+    where projectDetail_id = #{projectdetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

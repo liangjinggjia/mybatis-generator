@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhou.feidong.mapper.UserActionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zhou.feidong.domian.UserActionLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="ip_addr_v4" property="ipAddrV4" jdbcType="VARCHAR" />
+    <result column="ip_addr_v6" property="ipAddrV6" jdbcType="VARCHAR" />
+    <result column="os_name" property="osName" jdbcType="VARCHAR" />
+    <result column="os_version" property="osVersion" jdbcType="VARCHAR" />
+    <result column="bro_name" property="broName" jdbcType="VARCHAR" />
+    <result column="bro_version" property="broVersion" jdbcType="VARCHAR" />
+    <result column="request_body" property="requestBody" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, login_id, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version, bro_name, 
+    bro_version, request_body, description, other, method
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhou.feidong.domian.UserActionLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_action_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_action_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhou.feidong.domian.UserActionLogExample" >
+    delete from user_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhou.feidong.domian.UserActionLog" >
+    insert into user_action_log (id, login_id, session_id, 
+      time, ip_addr_v4, ip_addr_v6, 
+      os_name, os_version, bro_name, 
+      bro_version, request_body, description, 
+      other, method)
+    values (#{id,jdbcType=INTEGER}, #{loginId,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{ipAddrV4,jdbcType=VARCHAR}, #{ipAddrV6,jdbcType=VARCHAR}, 
+      #{osName,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{broName,jdbcType=VARCHAR}, 
+      #{broVersion,jdbcType=VARCHAR}, #{requestBody,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhou.feidong.domian.UserActionLog" >
+    insert into user_action_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="ipAddrV4 != null" >
+        ip_addr_v4,
+      </if>
+      <if test="ipAddrV6 != null" >
+        ip_addr_v6,
+      </if>
+      <if test="osName != null" >
+        os_name,
+      </if>
+      <if test="osVersion != null" >
+        os_version,
+      </if>
+      <if test="broName != null" >
+        bro_name,
+      </if>
+      <if test="broVersion != null" >
+        bro_version,
+      </if>
+      <if test="requestBody != null" >
+        request_body,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddrV4 != null" >
+        #{ipAddrV4,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddrV6 != null" >
+        #{ipAddrV6,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null" >
+        #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null" >
+        #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="broName != null" >
+        #{broName,jdbcType=VARCHAR},
+      </if>
+      <if test="broVersion != null" >
+        #{broVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="requestBody != null" >
+        #{requestBody,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhou.feidong.domian.UserActionLogExample" resultType="java.lang.Integer" >
+    select count(*) from user_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_action_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginId != null" >
+        login_id = #{record.loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionId != null" >
+        session_id = #{record.sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ipAddrV4 != null" >
+        ip_addr_v4 = #{record.ipAddrV4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipAddrV6 != null" >
+        ip_addr_v6 = #{record.ipAddrV6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osName != null" >
+        os_name = #{record.osName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osVersion != null" >
+        os_version = #{record.osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.broName != null" >
+        bro_name = #{record.broName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.broVersion != null" >
+        bro_version = #{record.broVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestBody != null" >
+        request_body = #{record.requestBody,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null" >
+        method = #{record.method,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_action_log
+    set id = #{record.id,jdbcType=INTEGER},
+      login_id = #{record.loginId,jdbcType=VARCHAR},
+      session_id = #{record.sessionId,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      ip_addr_v4 = #{record.ipAddrV4,jdbcType=VARCHAR},
+      ip_addr_v6 = #{record.ipAddrV6,jdbcType=VARCHAR},
+      os_name = #{record.osName,jdbcType=VARCHAR},
+      os_version = #{record.osVersion,jdbcType=VARCHAR},
+      bro_name = #{record.broName,jdbcType=VARCHAR},
+      bro_version = #{record.broVersion,jdbcType=VARCHAR},
+      request_body = #{record.requestBody,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhou.feidong.domian.UserActionLog" >
+    update user_action_log
+    <set >
+      <if test="loginId != null" >
+        login_id = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddrV4 != null" >
+        ip_addr_v4 = #{ipAddrV4,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddrV6 != null" >
+        ip_addr_v6 = #{ipAddrV6,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null" >
+        os_name = #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null" >
+        os_version = #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="broName != null" >
+        bro_name = #{broName,jdbcType=VARCHAR},
+      </if>
+      <if test="broVersion != null" >
+        bro_version = #{broVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="requestBody != null" >
+        request_body = #{requestBody,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhou.feidong.domian.UserActionLog" >
+    update user_action_log
+    set login_id = #{loginId,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      ip_addr_v4 = #{ipAddrV4,jdbcType=VARCHAR},
+      ip_addr_v6 = #{ipAddrV6,jdbcType=VARCHAR},
+      os_name = #{osName,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      bro_name = #{broName,jdbcType=VARCHAR},
+      bro_version = #{broVersion,jdbcType=VARCHAR},
+      request_body = #{requestBody,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
